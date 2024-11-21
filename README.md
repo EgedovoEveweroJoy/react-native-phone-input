@@ -6,15 +6,13 @@ Demo of Phone Input box for React Native (android/ios)
 | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 
 ## Versions
- * 0.x.x has been deprecated and is no longer maintained
- * 1.x.x is the current version and is actively maintained (please submit a PR for improvements)
 
+* 0.x.x has been deprecated and is no longer maintained
+* 1.x.x is the current version and is actively maintained (please submit a PR for improvements)
 
 ## Installation
 
-```
 npm i react-native-phone-input --save
-```
 
 ## Basic Usage
 
@@ -31,12 +29,11 @@ render(){
 [see full basic example](https://github.com/thegamenicorus/react-native-phone-input/blob/master/examples/BasicExample/app.js)
 
 ## Using a Custom Country Picker
+
 (android/ios)
 
 | ![2560-02-08 01_46_21](https://cloud.githubusercontent.com/assets/21040043/22706060/73b04994-eda0-11e6-8e86-3ae1a94d9bd3.gif) | ![2560-02-08 01_10_22](https://cloud.githubusercontent.com/assets/21040043/22705440/0cc61896-ed9e-11e6-83d6-e4d98cf5c06f.gif) |
 | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-
-
 
 1. In componentDidMount, keep this.phone.getPickerData() in state
 2. Create a function to open your modal (onPressFlag in example)
@@ -89,9 +86,9 @@ render(){
 We recommend using the awesome [react-native-country-picker-modal](https://github.com/xcarpentier/react-native-country-picker-modal) to select country
 
 (android/ios)
+
 | ![2560-02-08 02_43_18](https://cloud.githubusercontent.com/assets/21040043/22708333/6d0938b4-eda8-11e6-9ca1-ae217536b4cc.gif) | ![2560-02-08 02_26_20](https://cloud.githubusercontent.com/assets/21040043/22707625/fecc68d2-eda5-11e6-868c-42d3c544fcc8.gif) |
 | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-
 
 ```jsx
 onPressFlag(){
@@ -145,7 +142,7 @@ render(){
 
 [see full custom library picker example](https://github.com/thegamenicorus/react-native-phone-input/blob/master/examples/CustomLibraryPicker/app.js)
 
-## Custom Flag component 
+## Custom Flag component
 
 If you need to change how the flag is rendered, you can use the `renderFlag` property. This function is passed the flag image source as a named `imageSource` argument.
 
@@ -164,7 +161,6 @@ If you need to change how the flag is rendered, you can use the `renderFlag` pro
 />
 ```
 
-
 ## Custom Countries
 
 ```jsx
@@ -173,7 +169,7 @@ If you need to change how the flag is rendered, you can use the `renderFlag` pro
 
 ## Configuration
 
-### Properties:
+### Properties
 
 | Property Name             | Type                      | Default           | Description                                                                    |
 | ------------------------- | ------------------------- | ------------------| ------------------------------------------------------------------------------ |
@@ -202,7 +198,7 @@ If you need to change how the flag is rendered, you can use the `renderFlag` pro
 | renderFlag                | function({ imageSource }) | null              | custom render function for the flag component, passed an image src             |
 | countriesList             | array                     | null              | custom countries list                                                          |
 
-### Functions:
+### Functions
 
 | Function Name   | Return Type | Parameters  | Description                                       |
 | --------------- | ----------- | ----------- | ------------------------------------------------- |

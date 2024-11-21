@@ -69,6 +69,7 @@ class PhoneNumber {
         try {
             return phoneUtil.parse(number, iso2);
         } catch (err: any) {
+            // eslint-disable-next-line no-console
             console.log(`Exception was thrown: ${err.toString()}`);
             return null;
         }

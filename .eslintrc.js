@@ -39,5 +39,13 @@ module.exports = {
                 order: ['static-variables', 'static-methods', 'instance-variables', 'constructor', 'lifecycle', 'everything-else', 'render']
             }
         ],
+        overrides: [
+            {
+                files: ['**/*.test.ts', '**/*.spec.ts'],
+                rules: {
+                    'import/no-extraneous-dependencies': ['error', { devDependencies: true }]
+                }
+            }
+        ],
     },
 };

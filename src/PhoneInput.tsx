@@ -1,7 +1,11 @@
 import React from 'react'; // eslint-disable-line import/no-extraneous-dependencies, no-use-before-define
 import {
-    Image, TextInput, TouchableOpacity, View
+    Image,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from 'react-native';
+
 import Country from './country';
 import Flags from './resources/flags';
 import PhoneNumber from './PhoneNumber';
@@ -9,8 +13,8 @@ import styles from './styles';
 import CountryPicker from './CountryPicker';
 import { ReactNativePhoneInputProps } from './typings';
 
-export default class PhoneInput<TextComponentType extends React.ComponentType = typeof TextInput>
-    extends React.Component<ReactNativePhoneInputProps<TextComponentType>, any> {
+export default class PhoneInput
+<TextComponentType extends React.ComponentType = typeof TextInput> extends React.Component<ReactNativePhoneInputProps<TextComponentType>, any> {
     static setCustomCountriesData(json) {
         Country.setCustomCountriesData(json);
     }
@@ -23,11 +27,13 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
         super(props);
 
         let {
-            initialCountry, initialValue
+            initialCountry = 'US',
+            initialValue = '',
         } = this.props;
 
         const {
-            countriesList, disabled
+            countriesList,
+            disabled = false
         } = this.props;
 
         if (countriesList) {
@@ -64,7 +70,7 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
         }
     }
 
-    onChangePhoneNumber = (number) => {
+    onChangePhoneNumber = (number: string) => {
         const actionAfterSetState = this.props.onChangePhoneNumber
             ? (displayValue: string, iso2: string) => {
                 this.props.onChangePhoneNumber?.(displayValue, iso2);
@@ -221,6 +227,7 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
         const { iso2, displayValue, disabled } = this.state;
         const country = this.getAllCountries().find((c) => c.iso2 === iso2);
         const TextComponent: any = this.props.textComponent || TextInput;
+
         return (
             <View style={[styles.container, this.props.style]}>
                 <TouchableOpacity
@@ -263,20 +270,20 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
                 </View>
 
                 <CountryPicker
-                    ref={(ref) => {
-                        this.picker = ref;
-                    }}
+                    ref={(ref) => { this.picker = ref; }}
                     selectedCountry={iso2}
                     onSubmit={this.selectCountry}
-                    buttonColor={this.props.pickerButtonColor}
-                    cancelText={this.props.cancelText}
-                    cancelTextStyle={this.props.cancelTextStyle}
-                    confirmText={this.props.confirmText}
-                    confirmTextStyle={this.props.confirmTextStyle}
-                    pickerBackgroundColor={this.props.pickerBackgroundColor}
+                    buttonColor={this.props.pickerButtonColor || 'defaultColor'}
+                    cancelText={this.props.cancelText || 'Cancel'}
+                    cancelTextStyle={this.props.cancelTextStyle || { color: 'gray' }}
+                    confirmText={this.props.confirmText || 'Confirm'}
+                    confirmTextStyle={this.props.confirmTextStyle || { color: 'green' }}
+                    pickerBackgroundColor={this.props.pickerBackgroundColor || 'white'}
                     itemStyle={this.props.pickerItemStyle}
-                    onPressCancel={this.props.onPressCancel}
-                    onPressConfirm={this.props.onPressConfirm}
+                    // eslint-disable-next-line no-console
+                    onPressCancel={this.props.onPressCancel || (() => console.log('Cancel pressed'))}
+                    // eslint-disable-next-line no-console
+                    onPressConfirm={this.props.onPressConfirm || (() => console.log('Confirm pressed'))}
                 />
             </View>
         );

@@ -16,10 +16,11 @@ export default class CountryPicker extends Component<ReactNativeCountryPickerPro
     constructor(props) {
         super(props);
 
+        const { buttonColor = '#007AFF', selectedCountry = Country.getAll()[0] } = this.props;
         this.state = {
-            buttonColor: this.props.buttonColor || '#007AFF',
+            buttonColor,
             modalVisible: false,
-            selectedCountry: this.props.selectedCountry || Country.getAll()[0],
+            selectedCountry,
         };
     }
 
@@ -30,8 +31,9 @@ export default class CountryPicker extends Component<ReactNativeCountryPickerPro
     }
 
     onPressCancel = () => {
-        if (this.props.onPressCancel) {
-            this.props.onPressCancel();
+        const { onPressCancel } = this.props;
+        if (onPressCancel) {
+            onPressCancel();
         }
 
         this.setState({
@@ -40,12 +42,13 @@ export default class CountryPicker extends Component<ReactNativeCountryPickerPro
     }
 
     onPressSubmit = () => {
-        if (this.props.onPressConfirm) {
-            this.props.onPressConfirm();
+        const { onPressConfirm, onSubmit } = this.props;
+        if (onPressConfirm) {
+            onPressConfirm();
         }
 
-        if (this.props.onSubmit) {
-            this.props.onSubmit(this.state.selectedCountry);
+        if (onSubmit) {
+            onSubmit(this.state.selectedCountry);
         }
 
         this.setState({
@@ -67,18 +70,33 @@ export default class CountryPicker extends Component<ReactNativeCountryPickerPro
 
     // eslint-disable-next-line class-methods-use-this
     renderItem(country, index) {
-        return <PickerItem key={country.iso2} value={country.iso2} label={country.name} />;
+        return (
+            <PickerItem
+                key={`${country.iso2}-${index}`} // Use the index as part of the key
+                value={country.iso2}
+                label={country.name}
+            />
+        );
     }
 
     render() {
+        const {
+            cancelText = 'Cancel',
+            confirmText = 'Confirm',
+            pickerBackgroundColor = 'white',
+            cancelTextStyle = {},
+            confirmTextStyle = {},
+            itemStyle = {}
+        } = this.props;
+
         const { buttonColor } = this.state;
-        const itemStyle = this.props.itemStyle || {};
         return (
             <Modal
                 animationType="slide"
                 transparent
                 visible={this.state.modalVisible}
                 onRequestClose={() => {
+                    // eslint-disable-next-line no-console
                     console.log('Country picker has been closed.');
                 }}
             >
@@ -86,19 +104,19 @@ export default class CountryPicker extends Component<ReactNativeCountryPickerPro
                     <View
                         style={[
                             styles.modalContainer,
-                            { backgroundColor: this.props.pickerBackgroundColor || 'white' },
+                            { backgroundColor: pickerBackgroundColor },
                         ]}
                     >
                         <View style={styles.buttonView}>
                             <TouchableOpacity onPress={this.onPressCancel}>
-                                <Text style={[{ color: buttonColor }, this.props.cancelTextStyle]}>
-                                    {this.props.cancelText || 'Cancel'}
+                                <Text style={[{ color: buttonColor }, cancelTextStyle]}>
+                                    {cancelText}
                                 </Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity onPress={this.onPressSubmit}>
-                                <Text style={[{ color: buttonColor }, this.props.confirmTextStyle]}>
-                                    {this.props.confirmText || 'Confirm'}
+                                <Text style={[{ color: buttonColor }, confirmTextStyle]}>
+                                    {confirmText}
                                 </Text>
                             </TouchableOpacity>
                         </View>
